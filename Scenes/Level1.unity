@@ -367,7 +367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 298903138}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.1, y: 0, z: 0}
+  m_LocalPosition: {x: 3.75, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 2098541813}
@@ -408,7 +408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &373591944
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11030,7 +11030,7 @@ MonoBehaviour:
   magnet: {fileID: 3513458172007259961, guid: 03da96c35187f495ca6f46b2e3837018, type: 3}
   Bomb: {fileID: 8154797936939827928, guid: 8428788a0ec514f1da8aacacab6f10dc, type: 3}
   Net: {fileID: 2630173186569712784, guid: 7cb0a39496c5b49e790ea6288813e06f, type: 3}
-  newPosition: {x: 3, y: 4.5, z: 0}
+  newPosition: {x: 3.7, y: 4.5, z: 0}
 --- !u!50 &1278877446
 Rigidbody2D:
   serializedVersion: 4
@@ -11265,7 +11265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1925846681}
-  moveSpeed: 5.3
+  moveSpeed: 7
   throwObject: ThrowRain
   startTime: 0.26
   repeatTime: 0.26
@@ -11275,7 +11275,7 @@ MonoBehaviour:
   magnet: {fileID: 3513458172007259961, guid: 03da96c35187f495ca6f46b2e3837018, type: 3}
   Bomb: {fileID: 8154797936939827928, guid: 8428788a0ec514f1da8aacacab6f10dc, type: 3}
   Net: {fileID: 2630173186569712784, guid: 7cb0a39496c5b49e790ea6288813e06f, type: 3}
-  newPosition: {x: 3, y: 4.5, z: 0}
+  newPosition: {x: 3.7, y: 4.5, z: 0}
 --- !u!50 &1296395514
 Rigidbody2D:
   serializedVersion: 4
@@ -16474,7 +16474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1925846681}
-  moveSpeed: 10
+  moveSpeed: 5
   throwObject: ThrowBomb
   startTime: 2
   repeatTime: 2
@@ -16484,7 +16484,7 @@ MonoBehaviour:
   magnet: {fileID: 3513458172007259961, guid: 03da96c35187f495ca6f46b2e3837018, type: 3}
   Bomb: {fileID: 8154797936939827928, guid: 8428788a0ec514f1da8aacacab6f10dc, type: 3}
   Net: {fileID: 2630173186569712784, guid: 7cb0a39496c5b49e790ea6288813e06f, type: 3}
-  newPosition: {x: 3, y: 4.5, z: 10}
+  newPosition: {x: 3.7, y: 4.5, z: 10}
 --- !u!50 &1717299391
 Rigidbody2D:
   serializedVersion: 4
@@ -17007,7 +17007,7 @@ MonoBehaviour:
   magnet: {fileID: 3513458172007259961, guid: 03da96c35187f495ca6f46b2e3837018, type: 3}
   Bomb: {fileID: 8154797936939827928, guid: 8428788a0ec514f1da8aacacab6f10dc, type: 3}
   Net: {fileID: 2630173186569712784, guid: 7cb0a39496c5b49e790ea6288813e06f, type: 3}
-  newPosition: {x: 3, y: 4.5, z: 0}
+  newPosition: {x: 3.7, y: 4.5, z: 0}
 --- !u!50 &1900491171
 Rigidbody2D:
   serializedVersion: 4
@@ -17478,7 +17478,7 @@ MonoBehaviour:
   magnet: {fileID: 3513458172007259961, guid: 03da96c35187f495ca6f46b2e3837018, type: 3}
   Bomb: {fileID: 0}
   Net: {fileID: 0}
-  newPosition: {x: 3, y: 4.5, z: 0}
+  newPosition: {x: 4, y: 4.5, z: 0}
 --- !u!4 &1927854110
 Transform:
   m_ObjectHideFlags: 0
@@ -17687,7 +17687,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980084454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.1, y: 0, z: 0}
+  m_LocalPosition: {x: -3.7, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 2098541813}
@@ -17752,7 +17752,7 @@ MonoBehaviour:
   magnet: {fileID: 3513458172007259961, guid: 03da96c35187f495ca6f46b2e3837018, type: 3}
   Bomb: {fileID: 8154797936939827928, guid: 8428788a0ec514f1da8aacacab6f10dc, type: 3}
   Net: {fileID: 2630173186569712784, guid: 7cb0a39496c5b49e790ea6288813e06f, type: 3}
-  newPosition: {x: 3, y: 4.5, z: 10}
+  newPosition: {x: 3.7, y: 4.5, z: 10}
 --- !u!50 &1987715585
 Rigidbody2D:
   serializedVersion: 4
@@ -17849,8 +17849,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987715583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2, y: 4.5, z: 10}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalPosition: {x: 2.2, y: 4.6, z: 10}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
@@ -17865,7 +17865,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2098541813}
   m_Layer: 0
-  m_Name: MagnetWall
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

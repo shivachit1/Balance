@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D player;
+    private Animator PlayerAnim;
 
     // touch position when user touches the screen
     private Vector3 touchPosition;
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour
     {
         
         player= GetComponent<Rigidbody2D>();
+        PlayerAnim = GetComponent<Animator>();
         healthBar.SetMaxHealth();
         startingMobilePosition.x =Input.acceleration.x;
         startingMobilePosition.y =Input.acceleration.y;
@@ -72,6 +74,7 @@ public class Player : MonoBehaviour
             GameOver();
             finalScoreText.text=scoreText.text;
             magnetArea.SetActive(false);
+            PlayerAnim.SetBool("dead",true);
 
          }
 
@@ -171,10 +174,10 @@ void OnTriggerEnter2D(Collider2D other) {
                 particleBrustManager.showRainParticles();
                
                 if(!gameContinue){
+                     gameStatus="gameOver";
                     SoundManagerScript.PlayDeadSound();
                      //Destroy (player.gameObject);
-                    gameStatus="gameOver";
-                    
+                   
                    
                 }else{
                     SoundManagerScript.PlayWaterDropSound();
@@ -205,13 +208,23 @@ void OnTriggerEnter2D(Collider2D other) {
                 Timer = 5;
 
             }else if(other.tag=="bomb"){
+                gameStatus = "gameOver";
                 SoundManagerScript.PlayExplodeSound();
                 particleBrustManager.showBombParticles();
                 healthBar.Dead();
-                gameStatus = "gameOver";
                  SoundManagerScript.PlayDeadSound();
                 Destroy(other.gameObject);
+            }else if(other.tag=="spidernet"){
+                gameStatus = "gameOver";
+                Vector3 newPosition = new Vector3(other.gameObject.transform.position.x,other.gameObject.transform.position.y,10.0f);
+                player.gameObject.transform.parent = other.gameObject.transform;
+                player.gameObject.transform.position = newPosition;
+                other.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+                other.gameObject.GetComponent<Rigidbody2D>().velocity=Vector2.zero;
+                healthBar.Dead();
+                 SoundManagerScript.PlayDeadSound();
             }
+            
         
         }
     
