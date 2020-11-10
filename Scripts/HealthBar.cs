@@ -25,11 +25,28 @@ public class HealthBar : MonoBehaviour
           return false;
       }
       
+  }
 
+
+  public void IncreaseHealth(){
+
+    
+      if(health < 5){
+          health = health+1;
+          slider.value=health;
+          filler.color = gradient.Evaluate(slider.normalizedValue);
+      }
+      
   }
 
   public void SetMaxHealth(){
       slider.value = 5;
+      filler.color = gradient.Evaluate(1f);
+  }
+
+
+  public void Dead(){
+      slider.value = 0;
       filler.color = gradient.Evaluate(1f);
   }
 

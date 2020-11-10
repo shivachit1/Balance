@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     // touch direction to move player around, assigned only when screen touch starts.
     private Vector3 direction;
 
+    // For Accelerometer Starting postion
+    private Vector2 startingMobilePosition = Vector3.zero;
     // speed for player movement
     private float moveSpeed=10f;
 
@@ -19,6 +21,9 @@ public class Player : MonoBehaviour
 
     
     public HealthBar healthBar;
+
+    
+    public GameObject magnetArea;
 
     // Game object to call when Particles brusts is needed
     public ParticleBrustManager particleBrustManager;
@@ -33,16 +38,30 @@ public class Player : MonoBehaviour
     // score Counter 
     private float scoreValue = 0;
 
+
+    public GameObject TimerUI;
+    public Text timerText;
+    bool magnetActivated=false;
+    float Timer=3;
+
     void Start()
     {
         
         player= GetComponent<Rigidbody2D>();
         healthBar.SetMaxHealth();
+        startingMobilePosition.x =Input.acceleration.x;
+        startingMobilePosition.y =Input.acceleration.y;
+        magnetArea.SetActive(false);
+
+
+        
+
     }
 
     // Update is called on fixed rate
    void FixedUpdate()
 {
+       
          
          if(gameStatus=="start"){
            handleTouchMovement();
@@ -52,7 +71,31 @@ public class Player : MonoBehaviour
          else if (gameStatus=="gameOver"){
             GameOver();
             finalScoreText.text=scoreText.text;
+            magnetArea.SetActive(false);
+
          }
+
+
+        Timer -= Time.deltaTime;
+        magnetArea.transform.position = player.transform.position;
+            
+        if(Timer > 0){
+                TimerUI.SetActive(true);
+                timerText.text = ""+Mathf.Round(Timer);
+                if(magnetActivated){
+                    magnetActivated = false;
+                    magnetArea.SetActive(true);
+                }
+        }else{
+               TimerUI.SetActive(false);
+              magnetArea.SetActive(false);
+        }
+
+        
+        
+        
+           
+        
         
        
     }
@@ -60,9 +103,11 @@ public class Player : MonoBehaviour
      
     // Acceleration sensor for movement
     private void handleMovement(){
+        
         float movementX = Input.acceleration.x;
-        float movementY = Input.acceleration.y;
-            player.velocity = new Vector2(10*movementX,10*movementY);
+        float movementY = Input.acceleration.y-startingMobilePosition.y;
+            player.velocity = new Vector2(50f*movementX,0);
+            
             Debug.Log(movementX);
       
     }
@@ -101,29 +146,76 @@ public class Player : MonoBehaviour
 
                             // drag movement allowed only when user has first touch the Game object otherwise staying still
                             if(playerTouched){
-                                    direction = (touchPosition - transform.position);
-                                    player.velocity = new Vector2(direction.x, direction.y) * moveSpeed;
+                                 player.position = new Vector3(touchPosition.x,touchPosition.y+0.5f);
+                            }
 
-                                }
-
-                        
                          }
-                        
-                            
+
                         // touch phase ended, player velocy set to 0, and player touch deactivated. New touch on player object needed to activate again.
                         if(touch.phase == TouchPhase.Ended){
                             player.velocity = Vector2.zero;
                             playerTouched=false;
                         }
                     }
-
-        
-        
       
     }
 
 
+void OnTriggerEnter2D(Collider2D other) {
+      // if collision to rain drop, then play sound, decrease health, and call to instantiate small water drop particles  
+        if(gameStatus!="gameOver"){
+            
+            if(other.tag=="raindrop"){
+                
+                bool gameContinue = healthBar.DecreaseHealth();
+                particleBrustManager.showRainParticles();
+               
+                if(!gameContinue){
+                    SoundManagerScript.PlayDeadSound();
+                     //Destroy (player.gameObject);
+                    gameStatus="gameOver";
+                    
+                   
+                }else{
+                    SoundManagerScript.PlayWaterDropSound();
+                     Destroy(other.gameObject);
+                }
+             
+                    
+            }
 
+             // if collision to flower, then play sound, score plus, and call to instantiate small petal particles 
+            else if(other.tag=="flower"){
+                scoreValue +=1;
+                SoundManagerScript.PlayScoreSound();
+                particleBrustManager.showFlowerParticles();
+                 Destroy(other.gameObject);
+            }
+
+              // if collision to flower, then play sound, score plus, and call to instantiate small petal particles 
+            else if(other.tag=="lifeUp"){
+                healthBar.IncreaseHealth();
+                SoundManagerScript.PlayLifeUpSound();
+                particleBrustManager.showLifeUpParticles();
+                Destroy(other.gameObject);
+            }else  if(other.tag=="magnet"){
+                Destroy(other.gameObject);
+                magnetArea.SetActive(true);
+                magnetActivated=true;
+                Timer = 5;
+
+            }else if(other.tag=="bomb"){
+                SoundManagerScript.PlayExplodeSound();
+                particleBrustManager.showBombParticles();
+                healthBar.Dead();
+                gameStatus = "gameOver";
+                 SoundManagerScript.PlayDeadSound();
+                Destroy(other.gameObject);
+            }
+        
+        }
+    
+}
 
     // particles Collision with Player
     private void OnParticleCollision(GameObject other) {
@@ -138,13 +230,13 @@ public class Player : MonoBehaviour
 
                 if(!gameContinue){
                     SoundManagerScript.PlayDeadSound();
+                     //Destroy (player.gameObject);
                     gameStatus="gameOver";
-                    Destroy (player);
+                   
                 }else{
                     SoundManagerScript.PlayWaterDropSound();
                 }
-            
-                        
+             
                     
             }
 
@@ -154,10 +246,18 @@ public class Player : MonoBehaviour
                 SoundManagerScript.PlayScoreSound();
                 particleBrustManager.showFlowerParticles();
             }
+
+              // if collision to flower, then play sound, score plus, and call to instantiate small petal particles 
+            else if(other.tag=="lifeUp"){
+                healthBar.IncreaseHealth();
+                SoundManagerScript.PlayLifeUpSound();
+                particleBrustManager.showLifeUpParticles();
+            }
         
         }
         
     }
+
 
     // showing Game Over UI
      public  void GameOver(){

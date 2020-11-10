@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "947256832499",
+    "firebase_url": "https://butterfly-c8eca.firebaseio.com",
+    "project_id": "butterfly-c8eca",
+    "storage_bucket": "butterfly-c8eca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947256832499:android:65647290b29d74548a2286",
+        "android_client_info": {
+          "package_name": "com.shiva.butterfly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947256832499-31rfdiq0mjc6vcpj64duhnmho39kcubm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shiva.butterfly",
+            "certificate_hash": "5ee82e8bce251d94e4d8414012130269072ec716"
+          }
+        },
+        {
+          "client_id": "947256832499-e8f7n94lh9tmplmndp3brmaiermt1bvq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxdhXmIfgbFJSgHvQMvagBFuV8roclANE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947256832499-e8f7n94lh9tmplmndp3brmaiermt1bvq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
