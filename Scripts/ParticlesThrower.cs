@@ -96,10 +96,10 @@ public class ParticlesThrower : MonoBehaviour
 
      private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag=="rightwall"){
-            newPosition = new Vector3(-3.7f,trans.position.y,trans.position.z);
+            newPosition = new Vector3(-3.5f,trans.position.y,trans.position.z);
         }
         if(other.tag=="leftwall"){
-            newPosition = new Vector3(3.7f,trans.position.y,trans.position.z);
+            newPosition = new Vector3(3.4f,trans.position.y,trans.position.z);
         }
     }
 }

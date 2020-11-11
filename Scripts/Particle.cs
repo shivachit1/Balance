@@ -27,7 +27,7 @@ public class Particle : MonoBehaviour
             }
         
             if(magnetActivated){
-               particle.gravityScale = -0.01f;
+               particle.velocity = Vector2.zero;
             particle.position = Vector2.Lerp(particle.position,player.position,5.0f * Time.deltaTime);
                 
             }

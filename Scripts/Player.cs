@@ -29,21 +29,10 @@ public class Player : MonoBehaviour
     // Game object to call when Particles brusts is needed
     public ParticleBrustManager particleBrustManager;
 
-    // Game running screen score text
-    public Text scoreText;
-
-    // UI to show when game is Over, initially assigned as inactive
-    public GameObject gameOverUI;
-    public Text finalScoreText;
-
-    // score Counter 
-    private float scoreValue = 0;
-
-
-    public GameObject TimerUI;
-    public Text timerText;
     bool magnetActivated=false;
     float Timer=3;
+
+    public UIManager UIManager;
 
     void Start()
     {
@@ -55,9 +44,6 @@ public class Player : MonoBehaviour
         startingMobilePosition.y =Input.acceleration.y;
         magnetArea.SetActive(false);
 
-
-        
-
     }
 
     // Update is called on fixed rate
@@ -66,39 +52,29 @@ public class Player : MonoBehaviour
        
          
          if(gameStatus=="start"){
-           handleTouchMovement();
-           
-            scoreText.text = scoreValue.ToString();
+                handleTouchMovement();
+
+                Timer -= Time.deltaTime;
+                magnetArea.transform.position = player.transform.position;
+                    
+                if(Timer > 0){
+                        if(magnetActivated){
+                            magnetActivated = false;
+                            magnetArea.SetActive(true);
+                        }
+                }
+                else {
+                    magnetArea.SetActive(false);
+                }
+
+
          }
          else if (gameStatus=="gameOver"){
-            GameOver();
-            finalScoreText.text=scoreText.text;
-            magnetArea.SetActive(false);
-            PlayerAnim.SetBool("dead",true);
+               UIManager.ShowTimerUI(false);
+                magnetArea.SetActive(false);
+                PlayerAnim.SetBool("dead",true);
 
          }
-
-
-        Timer -= Time.deltaTime;
-        magnetArea.transform.position = player.transform.position;
-            
-        if(Timer > 0){
-                TimerUI.SetActive(true);
-                timerText.text = ""+Mathf.Round(Timer);
-                if(magnetActivated){
-                    magnetActivated = false;
-                    magnetArea.SetActive(true);
-                }
-        }else{
-               TimerUI.SetActive(false);
-              magnetArea.SetActive(false);
-        }
-
-        
-        
-        
-           
-        
         
        
     }
@@ -174,12 +150,14 @@ void OnTriggerEnter2D(Collider2D other) {
                 particleBrustManager.showRainParticles();
                
                 if(!gameContinue){
+                    
                      gameStatus="gameOver";
-                    SoundManagerScript.PlayDeadSound();
-                     //Destroy (player.gameObject);
+                     SoundManagerScript.PlayDeadSound();
+                     UIManager.ShowGameOverUI();
                    
                    
-                }else{
+                }
+                else{
                     SoundManagerScript.PlayWaterDropSound();
                      Destroy(other.gameObject);
                 }
@@ -189,7 +167,7 @@ void OnTriggerEnter2D(Collider2D other) {
 
              // if collision to flower, then play sound, score plus, and call to instantiate small petal particles 
             else if(other.tag=="flower"){
-                scoreValue +=1;
+                UIManager.AddScore();
                 SoundManagerScript.PlayScoreSound();
                 particleBrustManager.showFlowerParticles();
                  Destroy(other.gameObject);
@@ -206,9 +184,11 @@ void OnTriggerEnter2D(Collider2D other) {
                 magnetArea.SetActive(true);
                 magnetActivated=true;
                 Timer = 5;
+                UIManager.ShowTimerUI(true);
 
             }else if(other.tag=="bomb"){
                 gameStatus = "gameOver";
+                UIManager.ShowGameOverUI();
                 SoundManagerScript.PlayExplodeSound();
                 particleBrustManager.showBombParticles();
                 healthBar.Dead();
@@ -216,6 +196,7 @@ void OnTriggerEnter2D(Collider2D other) {
                 Destroy(other.gameObject);
             }else if(other.tag=="spidernet"){
                 gameStatus = "gameOver";
+                UIManager.ShowGameOverUI();
                 Vector3 newPosition = new Vector3(other.gameObject.transform.position.x,other.gameObject.transform.position.y,10.0f);
                 player.gameObject.transform.parent = other.gameObject.transform;
                 player.gameObject.transform.position = newPosition;
@@ -230,52 +211,6 @@ void OnTriggerEnter2D(Collider2D other) {
     
 }
 
-    // particles Collision with Player
-    private void OnParticleCollision(GameObject other) {
-        
-        // if collision to rain drop, then play sound, decrease health, and call to instantiate small water drop particles  
-        if(gameStatus!="gameOver"){
-            
-            if(other.tag=="raindrop"){
-                
-                bool gameContinue = healthBar.DecreaseHealth();
-                particleBrustManager.showRainParticles();
-
-                if(!gameContinue){
-                    SoundManagerScript.PlayDeadSound();
-                     //Destroy (player.gameObject);
-                    gameStatus="gameOver";
-                   
-                }else{
-                    SoundManagerScript.PlayWaterDropSound();
-                }
-             
-                    
-            }
-
-             // if collision to flower, then play sound, score plus, and call to instantiate small petal particles 
-            else if(other.tag=="flower"){
-                scoreValue +=1;
-                SoundManagerScript.PlayScoreSound();
-                particleBrustManager.showFlowerParticles();
-            }
-
-              // if collision to flower, then play sound, score plus, and call to instantiate small petal particles 
-            else if(other.tag=="lifeUp"){
-                healthBar.IncreaseHealth();
-                SoundManagerScript.PlayLifeUpSound();
-                particleBrustManager.showLifeUpParticles();
-            }
-        
-        }
-        
-    }
-
-
-    // showing Game Over UI
-     public  void GameOver(){
-            gameOverUI.gameObject.SetActive(true);
-    }
-
+   
     
 }

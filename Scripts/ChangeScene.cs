@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class ChangeScene : MonoBehaviour
 {
@@ -18,9 +19,15 @@ public class ChangeScene : MonoBehaviour
 
     // change the scene with given name
     public void changeScene(){
+        string name = PlayerPrefs.GetString("User Name");
+        if(name!=""){
 
-        SceneManager.LoadScene(nextSceneName);
+            SceneManager.LoadScene(nextSceneName);
         
+        }else{
+            GameObject blinker = GameObject.Find("/Canvas/InputField/blinker");
+            blinker.SetActive(true);
+        }
 
     }
 }
