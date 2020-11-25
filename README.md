@@ -1,7 +1,7 @@
 <div>
   <div style="justify-content:center;">
     <h2>Butterfly</h2>
-     <img  width="200" height="400" src="/butterfly.png"/>
+     <img  width="1000" height="500" src="https://firebasestorage.googleapis.com/v0/b/portfoliowebsite-8eb68.appspot.com/o/butterflygame.png?alt=media&token=7ebebd4f-2a7f-4311-b3ba-b5fbb341f536"/>
   </div>
   
   <div>
